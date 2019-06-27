@@ -1,0 +1,193 @@
+
+
+.question_wrapper_div{
+	width: 100%
+}
+
+.question_added_div{
+	margin-top: 0%;
+	padding-top:0%
+}
+.reason_text_and_icon{
+	margin-top: 0%;
+	padding-top:0%
+	
+}
+.ui_story_card_header{
+	margin-top: 0%;
+	padding-top:0%
+}
+.feed_start_names{
+		margin-top: 0%;
+		padding-top:0%
+	
+}
+.card-body{
+			margin-top: 0%;
+			padding-top:0%
+	
+}
+.cardDiv1{
+				margin-top: 0%;
+				padding-top:0%
+	
+}
+.feed1{
+					margin-top: 0%;
+					padding-top:0%
+	
+}
+.card-body{
+	padding-top: 0%;
+}
+.question_added_div{
+	margin-left: 2%;
+}
+.question_added_text{
+	font-size: 10pt;
+}
+.bullet_div{
+	margin-left: 1%;
+}
+.topic_list_item{
+	margin-left: 1%;
+}
+.topic_name_text_inside_span{
+	font-size: 10pt;
+}
+.interested_topic_text{
+	margin-left: 1%;
+}
+.question_added_text{
+	font-size: 10pt;
+}
+
+.hide_story_div{
+	right:	0;top: 0;position: absolute;padding-right: 0%;z-index: 10;display: inline-block;
+}
+.cross{
+	border: none;
+}
+.questionWrapper_id{
+	padding-left: 0%;
+}
+.link_for_que_footer_answer{
+	font-size:10pt;
+}
+.question_when_asked{
+	font-size:10pt;padding-left: 2%;
+}
+.answer_div{
+	padding-right: 10%;
+}
+#answerBtn1{
+	margin-left: 0%;margin-top: 2%;
+}
+.answer_button_icon{
+	margin-left: 1%;float: left;
+}
+.ignore_div{
+	padding-left: 15%;
+}
+.ignore_div_class_1{
+	margin-left: 0%;margin-top: 2%;
+}
+.follow_div{
+	padding-left: 30%;
+}
+.follow_button_inner_div{
+	margin-left: 0%;margin-top: 2%;
+}
+.follow_button_icon{
+	margin-left: 1%;float: left;
+}
+.more_div{
+	padding-left: 30%;float: right;
+}
+.more_button_inner_div{
+	margin-left: 0%;margin-top: 2%;
+}
+.more_button_icon{
+	margin-left: 1%;float: left;
+}
+.xyz{
+	display: none;
+}
+.link_for_answer_count{
+	font-size:10pt;
+}
+.question_when_asked{
+	font-size:10pt;padding-left: 2%;
+}
+.answer_div{
+	padding-right: 10%;
+}
+.answer_btn_div_inner{
+	margin-left: 0%;margin-top: 2%;
+}
+.answer_button_icon{
+	margin-left: 1%;float: left;
+}
+.ignore_div{
+	padding-left: 15%;
+}
+.ignore_button_inner_div{
+	margin-left: 0%;margin-top: 2%;
+}
+.ignore_button_icon{
+	margin-left: 1%;float: left;
+}
+.follow_div{
+	padding-left: 30%;
+}
+.follow_button_inner_div{
+	margin-left: 0%;margin-top: 0%;
+}
+.follow_button_icon{
+	margin-left: 1%;float: left;
+}
+.more_div{
+	padding-left: 30%;float: right;
+}
+.more_div_inner{
+	margin-left: 0%;margin-top: 2%;
+}
+.more_button_icon{
+	margin-left: 1%;float: left;
+}
+
+.negative_feedback_wrapper{
+	display: none;
+}
+.msg{
+	float: left;
+}
+.link_for_undo{
+	margin-left: 90%;
+}
+.ignore_que_div{
+	display: none;
+}
+.card_for_ignore{
+	padding: 2% 5% 2% 5%;
+}
+.div_for_after_downvote{
+	display: none;
+}
+.card_after_downvote{
+	padding: 2% 5% 2% 5%;
+}
+.editor{
+	border: 0px;
+}
+
+
+
+/*answer_submit_btn*/
+.answer_submit_btn{
+	margin-top: 2%;
+}
+.editor_div_inner{
+	height: 200px;
+	width: auto;
+}
