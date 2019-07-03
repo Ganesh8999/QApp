@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlertModule } from 'ngx-bootstrap';
@@ -14,6 +14,10 @@ import { ContentComponent } from './content/content.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FooterComponent } from './footer/footer.component';
+import { AnswerService } from './answer.service';
+import { AnswerTable } from './answer/model/answer.model';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +29,7 @@ import { FooterComponent } from './footer/footer.component';
     ProfileComponent,
     ContentComponent,
     FooterComponent
+
   ],
   imports: [
     AlertModule.forRoot(),
@@ -32,9 +37,10 @@ import { FooterComponent } from './footer/footer.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AnswerService,AnswerTable],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

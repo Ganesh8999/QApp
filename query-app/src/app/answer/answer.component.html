@@ -8,7 +8,7 @@
 						<li class="list-group-item"><a href="#">Questions for you
 								&nbsp;&nbsp;<span class="badge badge-primary badge-pill"> 
 								
-								{{ questionCount }}
+								{{ questionsCount }}
 							
 								</span>
 						</a></li>
@@ -35,9 +35,9 @@
 					
 					<div class="container" style="padding-top: 2%;">
 
-					<div  *ngFor="let item of resp,let b of c">
+					<div  *ngFor="let questions of resp,let i = index">
 						
-						<div class="feed" [attr.id]=" 'feed'+ c.id " >
+						<div class="feed" id="feed{{i}}">
 							<div id="cardDiv" class="" style="border-radius: 50%;">
 								<div class="card" style="width: auto;">
 									<div class="card-body" style="">
@@ -76,7 +76,9 @@
 																<span class="question text-dark font-weight-bold"
                                 id="ui_question_text"> 
                                 
-                                {{item.question.questionDesc}}
+							  {{questions.questionDesc}}
+							  {{questions.questionId}}
+							  
 
 															</span>
 														</span> </a>
@@ -107,7 +109,7 @@
 																	class="answer_button_icon"> <i
 																		class="fas fa-pen">Answer</i></span></a> -->
 
-																		<button (click)="openAnswerWindow()"  id="answer1" type="button" class="btn btn-outline-primary">Answer</button>
+																		<button (click)="openAnswerWindow(i)" [attr.id]="'answer'+ i" type="button" class="btn btn-outline-primary">Answer</button>
 															</div>
 														  </div>
 														  <div class="col">
@@ -122,9 +124,13 @@
 														  </div>
 														  <div class="col">
 															<div class="follow_btn_div_inner" id="answerBtn1">
-																<a href="#" class="link_for_follow_button"> <span
+																<!-- <a href="#" class="link_for_follow_button"> <span
 																	class="follow_button_icon"> <i
-																		class="fas fa-thumbs-up">Follow</i></span></a>
+																		class="fas fa-thumbs-up">Follow</i></span></a> -->
+
+																		<button (click)="follow(i)" [attr.id]="'follow'+ i" type="button" class="btn btn-outline-primary"><span><i
+																			class="fas fa-thumbs-up">Follow</i></span></button>
+
 							
 															</div>
 														  </div>
@@ -198,10 +204,22 @@
 										</div>
 									</div> -->
 								</div>
-								<form *ngIf="show" style="margin-left: 5%;margin-right: 5%;margin-bottom: 3%;">
+								<form #ansForm="ngForm" name="form"  FormGroup (ngSubmit)="submitAnswer(ansForm)" id="textBox{{i}}" style="display: none;margin-left: 5%;margin-right: 5%;margin-bottom: 3%;" method="POST" >
 									<div class="form-group">
+										<input type="hidden" ngModel="feed{{i}}" name="hiddenForFeed" >
+										<input type="hidden" ngModel="{{i}}" name="feedNo" >
+
+
+										<input type="hidden" ngModel="{{questions.questionId}}" name="questionId" >
+										<input type="hidden" ngModel="{{questions.postedBy}}" name="postedBy" >
+
+										 <!-- for passing userId into the answerTable static value-->
+										<input type="hidden" ngModel="12" name="answeredBy" >
+
 										
-										<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+										
+										
+										<textarea ng-required="true" ng-model-options="{ getterSetter: true }"  ngModel class="form-control" name="answer" id="answerTextArea{{i}}" rows="3" #answer="ngModel" ngModel required></textarea>
 										
 									</div>
 									<button type="submit" class="btn btn-primary">Submit</button>
