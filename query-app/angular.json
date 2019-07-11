@@ -29,6 +29,7 @@
               
             ],
             "scripts": [
+              "src/assets/js/follow.js"
              
             ]
           },

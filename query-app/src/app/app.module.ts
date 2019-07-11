@@ -16,6 +16,11 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FooterComponent } from './footer/footer.component';
 import { AnswerService } from './answer.service';
 import { AnswerTable } from './answer/model/answer.model';
+import { Follow } from './answer/model/follow.model';
+
+
+
+
 
 
 @NgModule({
@@ -28,7 +33,9 @@ import { AnswerTable } from './answer/model/answer.model';
     NotificationComponent,
     ProfileComponent,
     ContentComponent,
-    FooterComponent
+    FooterComponent,
+   
+    
 
   ],
   imports: [
@@ -40,7 +47,7 @@ import { AnswerTable } from './answer/model/answer.model';
     AngularFontAwesomeModule,
     ReactiveFormsModule
   ],
-  providers: [AnswerService,AnswerTable],
+  providers: [AnswerService,AnswerTable,Follow],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
