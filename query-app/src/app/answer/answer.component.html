@@ -55,8 +55,8 @@ document.getElementById('fb-root').appendChild(e);
 						 <li class="list-group-item"><a href="#">Answer
 								Requests&nbsp;&nbsp;<span class="badge badge-primary badge-pill">&nbsp;10</span>
 						</a></li>
-						<li class="list-group-item"><a href="#">Answer
-								later&nbsp;&nbsp;<span class="badge badge-primary badge-pill">&nbsp;9</span>
+						<li class="list-group-item" (click)="getAnswerLaterQuestions()"><a >Answer
+								later&nbsp;&nbsp;<span class="badge badge-primary badge-pill">&nbsp;{{laterQueCount}}</span>
 						</a></li>
 						<li class="list-group-item"><a href="#">Drafts&nbsp;&nbsp;</a><span
 							class="badge badge-primary badge-pill">&nbsp;3</span></li> 
@@ -100,8 +100,7 @@ document.getElementById('fb-root').appendChild(e);
 															<span class="bullets_text">.</span>
 														</div> 
 														<div class="interested_topic_text" id="">
-															<span class="question_added_text ">Topic that
-																might you like</span>
+															<span class="question_added_text ">{{interested}} </span>
 														</div>
 														<div class="hide_story_div" id="">
 															<button id="cross" type="button" class="btn">
@@ -112,16 +111,17 @@ document.getElementById('fb-root').appendChild(e);
 													<!--  div for first card heading -->
 													<div class="question_wrapper_div"
 														id="questionWrapper_id">
-														<a href="#"><span class="ui_content_question">
-																<span class="question text-dark font-weight-bold"
+														<p><span class="ui_content_question">
+																<span class="question " style="font-family: 'Muli', sans-serif;"
                                 id="ui_question_text"> 
                                 
-							  {{questions.questionDesc}}
+							<h6>  {{questions.questionDesc}} </h6>
 							  {{questions.questionId}}
+							  
 							  
 
 															</span>
-														</span> </a>
+														</span> </p>
 													</div>
 													<!-- question wrapper -->
 													<div class="question_footer_content_wrapper"
@@ -168,8 +168,8 @@ document.getElementById('fb-root').appendChild(e);
 																	<!-- <button type="button" class="btn btn-outline-primary fb-share"><span><i
 																		class="fas fa-quidditch"> Share </i></span></button>
 																		<div id="fb-root"></div> -->
-																		<button  (click)="followCounter(questions.questionId,100)" [attr.id]="'follow'+ i" type="button" class="btn btn-outline-primary"><span><i
-																			class="fas fa-thumbs-up">  Follow  </i></span></button>&nbsp;<span
+																		<button   (click)="followCounter(questions.questionId,3)"  [attr.id]="'follow'+ i" type="button" class="btn btn-outline-primary"><span><i
+																			class="fas fa-thumbs-up"  >{{ followName }}  </i></span></button>&nbsp;<span
 																			class="badge badge-primary badge-pill">&nbsp;{{questions.follow}}</span>
 						
 															</div>
@@ -180,22 +180,27 @@ document.getElementById('fb-root').appendChild(e);
 																	class="follow_button_icon"> <i
 																		class="fas fa-thumbs-up">Follow</i></span></a> -->
 
-																		<iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fshareqna.000webhostapp.com%2F&link=https%3A%2F%2FHow-many-times-has-a-match-happened-in-the-reserve-day-in-the-ICC-Cricket-World-Cup-tournaments&layout=button&size=large&appId=327037491582803&width=59&height=20" width="150" height="50" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+																		<button (click)="answerLater(questions.questionId,3)" style="padding-left: 0.5%;padding-right: 0%;padding-top: 1%;"  [attr.id]="'follow'+ i" type="button" class="btn btn-outline-primary"><span><i
+																			class="fas fa-thumbs-up">  Answer Later </i></span></button>
+													
+
 
 																		
 
 							
 															</div>
 														  </div>
-														  <!-- <div class="col">
-															<div class="more_btn_div_inner" id="answerBtn1" style="padding-left: 10%">
-																<a href="#" class="link_for_more_button"> <span
+														  <div class="col" >
+															<div class="more_btn_div_inner" id="answerBtn1" style="padding-left: 3%;">
+																<!-- <a href="#" class="link_for_more_button"> <span
 																	class="more_button_icon"> <i
 																		class="fas fa-ellipsis-h"> </i></span></a>
+																		 -->
+																		 <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fshareqna.000webhostapp.com%2F&link=https%3A%2F%2FHow-many-times-has-a-match-happened-in-the-reserve-day-in-the-ICC-Cricket-World-Cup-tournaments&layout=button&size=large&appId=327037491582803&width=59&height=20" width="150" height="50" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+
 																		
-													
 															</div>
-														  </div> -->
+														  </div>
 														</div>
 											
 												</div>
@@ -204,6 +209,7 @@ document.getElementById('fb-root').appendChild(e);
 									</div>
 								
 								</div>
+								
 								<form  #ansForm="ngForm" nonvalidate name="form"  FormGroup (ngSubmit)="submitAnswer(ansForm)" id="textBox{{i}}" style="display: none;margin-left: 5%;margin-right: 5%;margin-bottom: 3%;" method="POST" >
 									<div class="form-group">
 										<!-- <input type="hidden" ngModel="feed{{i}}" name="hiddenForFeed" > -->
@@ -216,15 +222,21 @@ document.getElementById('fb-root').appendChild(e);
 										 <!-- for passing userId into the answerTable static value-->
 										<input type="hidden" ngModel="12" name="answeredBy" >
 
-										
-										<textarea ng-minlength="2" ng-maxlength="10"   name="answer" id="answerTextArea{{i}}" class="form-control" rows="3" #answer="ngModel" ngModel ng-required="true"></textarea>
-										
+										<input type="hidden" ngModel="{{i}}" name="answerSizeDiv">
+										<textarea maxlength="256" #answerLength name="answer" ng-change="checkLength(answerLength)" id="answerTextArea{{i}}" class="form-control" rows="3" #answer="ngModel" ngModel ng-required="true"></textarea>
+										<div id="answerSizeDiv{{i}}" class="ifDiv container" style="background-color: lightblue;border:border-danger;display: none;">
+												<i>Answer should contain at least 5 characters</i> 		
+											</div>
 										
 									</div>
+
+									<div class="container" > <p class="text-right text-success">Remaining characters {{ 256 - answerLength.value.length  }} </p> </div>
 									
-										<button ng-disabled="form.$invalid" type="submit" class="btn btn-primary">Submit</button>
+										<button [disabled]="!ansForm.valid" type="submit" class="btn btn-primary">Submit</button>
+										
 								
 									</form>
+									
 							</div>
 							
 						</div>
@@ -232,7 +244,7 @@ document.getElementById('fb-root').appendChild(e);
 						</div>
 						<!-- feed 1 -->
 					 <div class=" negative_feedback_wrapper container"
-							id="negativeFeedbackWrapper1" style="">
+							id="negativeFeedbackWrapper1">
 							<div class="card" style="width: 100%;">
 								<div class="card-body">
 									<div class="msg" style="">

@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AnswerService } from './answer.service';
 import { AnswerTable } from './answer/model/answer.model';
 import { Follow } from './answer/model/follow.model';
+import { Draft } from './answer/model/draft.model';
 
 
 
@@ -47,7 +48,7 @@ import { Follow } from './answer/model/follow.model';
     AngularFontAwesomeModule,
     ReactiveFormsModule
   ],
-  providers: [AnswerService,AnswerTable,Follow],
+  providers: [AnswerService,AnswerTable,Follow,Draft],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

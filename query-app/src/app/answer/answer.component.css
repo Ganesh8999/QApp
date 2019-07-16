@@ -195,3 +195,8 @@
 
 	color:red;
 }
+
+.ifDiv{
+    -webkit-animation: cssAnimation 5s forwards; 
+    animation: cssAnimation 5s forwards;
+}

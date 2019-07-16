@@ -6,6 +6,8 @@ import { AnswerService } from '../answer.service';
 import { AnswerTable } from './model/answer.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Follow } from './model/follow.model';
+import { Draft } from './model/draft.model';
+import { DraftService } from '../draft.service';
 
 
 
@@ -20,83 +22,105 @@ export class AnswerComponent implements OnInit {
 
   public window: any;
   public FB: any;
-
+public laterAnsweredQuestions:any;
   public resp: any;
   public followerCount: any;
   public followers : number;
   public questionsCount: number;
+  public laterQueCount: number;
   public show:boolean = false;
   public  c:number;
   public btnStyle : string;
+  public showMsg : boolean;
+
+  public followName: string   = "Follow"; 
+  public interested: string = "Topic that might you like";
 
   
   
 
-  constructor(private answerService: AnswerService, private http: HttpClient,private entry : AnswerTable,private follow : Follow ) {
+  constructor(private answerService: AnswerService, private http: HttpClient,private entry : AnswerTable,private follow : Follow,private draft : Draft,private draftService : DraftService ) {
 
   }
 
   
   ngOnInit() {
+
+     this.laterAnsweredQuestions = this.http.get("http://localhost:8080/query/draft"); 
+    this.laterAnsweredQuestions.subscribe((response)=>{this.resp=response;this.laterQueCount = this.resp.length});
  
     let responseData= this.http.get("http://localhost:8080/query/answer");
     responseData.subscribe((response)=>{this.resp=response;
     this.questionsCount = this.resp.length;
    
-  console.log(this.resp);
+   
+  //console.log(this.resp);
 
   });
 
 
-  // window.fbAsyncInit = function() {
-  //   FB.init({appId: 'YOUR APP ID', status: true, cookie: true,
-  //   xfbml: true});
-  //   };
-  //   (function() {
-  //   var e = document.createElement('script'); e.async = true;
-  //   e.src = document.location.protocol +
-  //   '//connect.facebook.net/en_US/all.js';
-  //   document.getElementById('fb-root').appendChild(e);
-  //   }());
+  
 
 
   }
 
-  // $(document).ready(function(){
-  //   $('#share_button').click(function(e){
-  //   e.preventDefault();
-  //   FB.ui(
-  //   {
-  //   method: 'feed',
-  //   name: 'This is the content of the "name" field.',
-  //   link: 'http://www.groupstudy.in/articlePost.php?id=A_111213073144',
-  //   picture: 'http://www.groupstudy.in/img/logo3.jpeg',
-  //   caption: 'Top 3 reasons why you should care about your finance',
-  //   description: "What happens when you don't take care of your finances? Just look at our country -- you spend irresponsibly, get in debt up to your eyeballs, and stress about how you're going to make ends meet. The difference is that you don't have a glut of taxpayers…",
-  //   message: ""
-  //   });
-  //   });
-  //   });
+  getAnswerLaterQuestions(){
+  
+   // let laterAnsweredQuestions = this.http.get("http://localhost:8080/query/draft"); 
+    this.laterAnsweredQuestions.subscribe((response)=>{this.resp=response;});
+  }
+
+  answerLater(questionId,userId){
+    console.log("hello");
+    this.draft.questionId = questionId;
+    this.draft.userId = userId;
+
+    this.draftService.addIntoDraft(this.draft).subscribe(() =>{this.ngOnInit()});
+  // $('#feed'+ansform.controls['feedNo'].value).hide();
+  }
+  // checkLength(len){
+  //   if(len.length){
+
+  //   }
+  // }
 
    openAnswerWindow(i :number) {
     console.log(i);
     $('#textBox'+i).toggle();
   }
  submitAnswer(ansform){
-  // console.log(form.value);
-   this.entry.answerDesc =  ansform.controls['answer'].value;
-  this.entry.answeredBy = ansform.controls['answeredBy'].value;
-  this.entry.postedBy = ansform.controls['postedBy'].value;
-  this.entry.questionId = ansform.controls['questionId'].value;
-  console.log(this.entry);
-  
-  this.answerService.enterAnswerDetails(this.entry).subscribe();
-  $('#feed'+ansform.controls['feedNo'].value).hide();
-  console.log(" card must be hide before this");
-  
- }
+   console.log(ansform.value);
 
- followCounter(questionIdForFollow,userId){
+  console.log(ansform.controls['answer'].value.length);
+ 
+  if( ansform.controls['answer'].value != "" && ansform.controls['answer'].value.length != 0 && ansform.controls['answer'].value.length > 10){
+    
+   this.entry.answerDesc =  ansform.controls['answer'].value;
+   this.entry.answeredBy = ansform.controls['answeredBy'].value;
+   this.entry.postedBy = ansform.controls['postedBy'].value;
+   this.entry.questionId = ansform.controls['questionId'].value;
+   console.log(this.entry);
+   
+   this.answerService.enterAnswerDetails(this.entry).subscribe(() =>{this.ngOnInit()});
+   $('#feed'+ansform.controls['feedNo'].value).hide();
+   console.log(" card must be hide before this");
+   
+  }else{
+    
+      $('#answerSizeDiv'+ansform.controls['answerSizeDiv'].value).show();
+   
+    setTimeout(function(){
+      $('#answerSizeDiv'+ansform.controls['answerSizeDiv'].value).hide();
+    },3000);
+
+   
+  }
+
+
+ }
+ 
+
+ followCounter(questionIdForFollow,userId,abc){
 
   this.follow.questionId = questionIdForFollow;
   this.follow.userId = userId;
@@ -104,7 +128,9 @@ export class AnswerComponent implements OnInit {
     // this.follow.questionId =  questionIdForFollowTable;
     // this.follow.follow = 0;
    //console.log(this.follow);
+
   this.answerService.followCounter(this.follow).subscribe(() =>{
+    
     this.ngOnInit();
   });
   
